@@ -55,11 +55,3 @@ input[type="submit"]  {
 	width: 160px;
 }
 
-table {
-	border: none !important;
-}
-
-tr#amo td:first-child {
-	border-bottom: none !important;
-
-}

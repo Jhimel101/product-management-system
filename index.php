@@ -46,7 +46,7 @@
 		<div class="card shadow-sm">
 			<div class="card-body">
 				<h2>Products Management </h2>
-				<table class="table table-striped table-bordered">
+				<table class="table table-striped ">
 					<thead>
 						<tr>
 							<th>#</th>
@@ -74,7 +74,7 @@
 
 						<tr id ="amo">
 							<td class="text-right" colspan="5">Total=</td>
-							<td>12000</td>
+							<td class="text-left">12000</td>
 						</tr>
 						
 						
