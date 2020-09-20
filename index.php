@@ -1,3 +1,13 @@
+<?php 
+
+	require_once "app/autoload.php"
+
+
+ ?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +19,33 @@
 	<link rel="stylesheet" href="assets/css/responsive.css">
 </head>
 <body>
+
+
+	<?php 
+
+		if ( isset($_POST['padd'])) {
+
+			//Value get
+
+			     $pname = $_POST['pname'];
+				 $pprice = $_POST['pprice'];
+				 $pquan = $_POST['pquan'];
+				 $total = $pprice * $pquan;
+			//Product Photo Upload
+
+				 $file =fileUpload($_FILES['pphoto'], 'products/');
+				 $photo_name = $file['file_name'];
+
+			//Product upload
+				 $sql ="INSERT INTO products (photo, product_name, product_price, quantity, total) VALUES ('$photo_name','$pname','$pprice','$pquan','$total')";
+				 $connection -> query($sql);
+		}
+
+
+
+
+
+	 ?>
 	
 	
 
@@ -17,24 +54,24 @@
 			<div class="card-body">
 				<h3>Add Product</h3>
 				
-				<form action="">
+				<form action="" method="POST" enctype="multipart/form-data">
 
 					<div class="form-group">
-						<input class="form-control"type="text" placeholder="Product Name">
-					</div>
-
-					<div class="form-group">
-						<input class="form-control"type="text" placeholder="Product Price">
+						<input name="pname" class="form-control"type="text" placeholder="Product Name">
 					</div>
 
 					<div class="form-group">
-						<input class="form-control"type="text" placeholder="Product Quantity">
+						<input name="pprice" class="form-control"type="text" placeholder="Product Price">
+					</div>
+
+					<div class="form-group">
+						<input name="pquan" class="form-control"type="text" placeholder="Product Quantity" name="">
 					</div>
 					<div class="form-group">
-						<input class="form-control"type="File" >
+						<input name="pphoto" class="form-control"type="File" >
 					</div>
 					<div class="form-group">
-						<input class="btn btn-primary btn-block" type="Submit" value="Add Product">s
+						<input name="padd" class="btn btn-primary btn-block" type="Submit" value="Add Product">s
 					</div>
 
 
