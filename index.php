@@ -30,8 +30,29 @@
 			     $pname = $_POST['pname'];
 				 $pprice = $_POST['pprice'];
 				 $pquan = $_POST['pquan'];
-				 $total = $pprice * $pquan;
-			//Product Photo Upload
+
+				 $total = NULL;
+
+				 if (!empty($pprice) && !empty($pquan)) {
+				 	$total = $pprice * $pquan;
+				 }
+				 
+
+
+
+
+			
+		}
+
+
+			// Form validation
+				if (empty($pname) || empty($pprice) || empty($pquan) || empty($total)) {
+					$mess = '<p class=\'alert alert-danger\'>All fields are required ! <button class=\'close\' data-dismiss=\'alert\'>&times;</button></p>';
+				
+			}
+			else{
+
+				//Product Photo Upload
 
 				 $file =fileUpload($_FILES['pphoto'], 'products/');
 				 $photo_name = $file['file_name'];
@@ -39,14 +60,7 @@
 			//Product upload
 				 $sql ="INSERT INTO products (photo, product_name, product_price, quantity, total) VALUES ('$photo_name','$pname','$pprice','$pquan','$total')";
 				 $connection -> query($sql);
-		}
-
-
-			// Form validation
-				if (empty($pname) || empty($pprice) || empty($pquan) || empty($total)) {
-					
-				}
-				
+				 $mess = '<p class=\'alert alert-success\'>Product added done ! <button class=\'close\' data-dismiss=\'alert\'>&times;</button></p>';
 			}
 
 
@@ -62,6 +76,18 @@
 		<div class="card w-50 mx-auto">
 			<div class="card-body">
 				<h3>Add Product</h3>
+
+				<?php
+
+				if(isset($mess)){
+					echo $mess;
+				}
+
+
+
+				?>
+
+
 				
 				<form action="" method="POST" enctype="multipart/form-data">
 
