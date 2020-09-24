@@ -42,6 +42,15 @@
 		}
 
 
+			// Form validation
+				if (empty($pname) || empty($pprice) || empty($pquan) || empty($total)) {
+					
+				}
+				
+			}
+
+
+
 
 
 
