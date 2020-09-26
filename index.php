@@ -30,8 +30,29 @@
 			     $pname = $_POST['pname'];
 				 $pprice = $_POST['pprice'];
 				 $pquan = $_POST['pquan'];
-				 $total = $pprice * $pquan;
-			//Product Photo Upload
+
+				 $total = NULL;
+
+				 if (!empty($pprice) && !empty($pquan)) {
+				 	$total = $pprice * $pquan;
+				 }
+				 
+
+
+
+
+			
+		}
+
+
+			// Form validation
+				if (empty($pname) || empty($pprice) || empty($pquan) || empty($total)) {
+					$mess = '<p class=\'alert alert-danger\'>All fields are required ! <button class=\'close\' data-dismiss=\'alert\'>&times;</button></p>';
+				
+			}
+			else{
+
+				//Product Photo Upload
 
 				 $file =fileUpload($_FILES['pphoto'], 'products/');
 				 $photo_name = $file['file_name'];
@@ -39,7 +60,9 @@
 			//Product upload
 				 $sql ="INSERT INTO products (photo, product_name, product_price, quantity, total) VALUES ('$photo_name','$pname','$pprice','$pquan','$total')";
 				 $connection -> query($sql);
-		}
+				 $mess = '<p class=\'alert alert-success\'>Product added done ! <button class=\'close\' data-dismiss=\'alert\'>&times;</button></p>';
+			}
+
 
 
 
@@ -53,6 +76,18 @@
 		<div class="card w-50 mx-auto">
 			<div class="card-body">
 				<h3>Add Product</h3>
+
+				<?php
+
+				if(isset($mess)){
+					echo $mess;
+				}
+
+
+
+				?>
+
+
 				
 				<form action="" method="POST" enctype="multipart/form-data">
 
@@ -96,18 +131,39 @@
 						</tr>
 					</thead>
 					<tbody>
+					</tbody>
+
+					<?php
+
+					//Product show
+
+					$sql ="SELECT  * FROM products ORDER BY id DESC";
+				    $products = $connection -> query($sql);
+
+				    $i =1;
+
+				    while ( $pro = $products -> fetch_assoc()) :
+
+					?>
+
+
+
 						<tr>
-							<td>1</td>
-							<td><img src="assets/media/img/pp_photo/istockphoto-615279718-612x612.jpg" alt=""></td>
-							<td>Biriyani</td>
-							<td>220</td>
-							<td>10</td>
-							<td>2200</td>
+							<td><?php echo $i;$i++; ?></td>
+							<td><img src="products/<?php echo $pro ['photo']; ?>" alt=""></td>
+							<td><?php echo $pro ['product_name']; ?></td>
+							<td><?php echo $pro ['product_price']; ?></td>
+							<td><?php echo $pro ['quantity']; ?></td>
+							<td><?php echo $pro ['total']; ?></td>
 							<td style="width:70px;">
 								
 								<a class="btn btn-sm btn-danger" href="#">Delete</a>
 							</td>
 						</tr>
+
+						<?php endwhile; ?>
+
+
 
 						<tr id ="amo">
 							<td class="text-right" colspan="5">Total=</td>
