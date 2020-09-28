@@ -131,18 +131,39 @@
 						</tr>
 					</thead>
 					<tbody>
+					</tbody>
+
+					<?php
+
+					//Product show
+
+					$sql ="SELECT  * FROM products ORDER BY id DESC";
+				    $products = $connection -> query($sql);
+
+				    $i =1;
+
+				    while ( $pro = $products -> fetch_assoc()) :
+
+					?>
+
+
+
 						<tr>
-							<td>1</td>
-							<td><img src="assets/media/img/pp_photo/istockphoto-615279718-612x612.jpg" alt=""></td>
-							<td>Biriyani</td>
-							<td>220</td>
-							<td>10</td>
-							<td>2200</td>
+							<td><?php echo $i;$i++; ?></td>
+							<td><img src="products/<?php echo $pro ['photo']; ?>" alt=""></td>
+							<td><?php echo $pro ['product_name']; ?></td>
+							<td><?php echo $pro ['product_price']; ?></td>
+							<td><?php echo $pro ['quantity']; ?></td>
+							<td><?php echo $pro ['total']; ?></td>
 							<td style="width:70px;">
 								
 								<a class="btn btn-sm btn-danger" href="#">Delete</a>
 							</td>
 						</tr>
+
+						<?php endwhile; ?>
+
+
 
 						<tr id ="amo">
 							<td class="text-right" colspan="5">Total=</td>
